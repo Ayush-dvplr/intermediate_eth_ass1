@@ -1,10 +1,10 @@
-# VotingSystem Smart Contract
+# MaskedOpinion Smart Contract
 
-This Solidity program is a simple voting contract that demonstrates the basic syntax and functionality of the Solidity programming language. The purpose of this program is to serve as a starting point for those who are new to Solidity and want to get a feel for how it works.
+This Solidity program is a simple polling contract that demonstrates the basic syntax and functionality of the Solidity programming language. The purpose of this program is to serve as a starting point for those who are new to Solidity and want to get a feel for how it works.
 
 ## Description
 
-This program is a basic voting contract written in Solidity, a programming language used for developing smart contracts on the Ethereum blockchain. The contract includes functionalities such as creating proposals and voting on them. This program serves as a simple and straightforward introduction to Solidity programming and can be used as a stepping stone for more complex projects in the future.
+This program is a basic polling contract written in Solidity, a programming language used for developing smart contracts on the Ethereum blockchain. The contract includes functionalities such as creating proposals and voting on them. This program serves as a simple and straightforward introduction to Solidity programming and can be used as a stepping stone for more complex projects in the future.
 
 In this smart contract we also implements the require(), assert() and revert() statements.
 
@@ -18,13 +18,13 @@ In this smart contract we also implements the require(), assert() and revert() s
 
 To run this program, you can use Remix, an online Solidity IDE. To get started, go to the Remix website at [Remix IDE](https://remix.ethereum.org/).
 
-Once you are on the Remix website, create a new file by clicking on the "+" icon in the left-hand sidebar. Save the file with a `.sol` extension (e.g., `VotingSystem.sol`). Copy and paste the following code into the file:
+Once you are on the Remix website, create a new file by clicking on the "+" icon in the left-hand sidebar. Save the file with a `.sol` extension (e.g., `MaskedOpinion.sol`). Copy and paste the following code into the file:
 
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.18;
 
-contract VotingSystem {
+contract MaskedOpinion {
 
     struct Proposal {
         string desc;
@@ -63,11 +63,11 @@ contract VotingSystem {
 
 ```
 
-To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to "0.8.18" (or another compatible version), and then click on the "Compile VotingSystem.sol" button.
+To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to "0.8.18" (or another compatible version), and then click on the "Compile MaskedOpinion.sol" button.
 
-Once the code is compiled, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar. Select the "VotingSystem" contract from the dropdown menu, and then click on the "Deploy" button.
+Once the code is compiled, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar. Select the "MaskedOpinion" contract from the dropdown menu, and then click on the "Deploy" button.
 
-Once the contract is deployed, you can interact with it by calling the createProposal and vote functions. For example, you can create a new proposal by providing a description. Similarly, you can vote on a proposal by providing the proposal ID.
+Once the contract is deployed, you can interact with it by calling the createProposal and vote functions. For example, you can create a new proposal by providing a description. Similarly, you can poll on a proposal by providing the proposal ID.
 
 ## Authors
 
