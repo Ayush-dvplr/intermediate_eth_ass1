@@ -6,6 +6,12 @@ This Solidity program is a simple voting contract that demonstrates the basic sy
 
 This program is a basic voting contract written in Solidity, a programming language used for developing smart contracts on the Ethereum blockchain. The contract includes functionalities such as creating proposals and voting on them. This program serves as a simple and straightforward introduction to Solidity programming and can be used as a stepping stone for more complex projects in the future.
 
+In this smart contract we also implements the require(), assert() and revert() statements.
+
+- require(): Used for input validation and precondition checks, ensuring certain conditions are met before proceeding.
+- revert(): Handles exceptions by reverting transactions, undoing state changes, and providing error messages.
+- assert(): Used for internal error checking, catching programming errors and ensuring invariants hold true.
+
 ## Getting Started
 
 ### Executing Program
