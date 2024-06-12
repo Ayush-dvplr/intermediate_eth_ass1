@@ -1,60 +1,39 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.18;
 
+contract VotingSystem {
 
-
-contract MyToken {
-
-    // Public variables to store token details
-    string public tokenName;
-    string public tokenAbbrv;
-    uint public totalSupply;
-
-    // Mapping to store balances of addresses
-    mapping(address => uint) public balances;
-
-    // Constructor to initialize the token details
-    constructor(string memory _name, string memory _abbrv) {
-        tokenName = _name;
-        tokenAbbrv = _abbrv;
-        totalSupply = 0;
+    struct Proposal {
+        string desc;
+        uint voteCount;
     }
 
-    // Function to mint new tokens
-    function mint(address _receiver, uint _amt) public {
-        totalSupply += _amt;
-        balances[_receiver] += _amt;
-    }
+    Proposal[] private  proposals;
+    mapping(address => mapping(uint => bool)) public hasVoted;
 
-    // Function to burn tokens
-    function burn(address _sender, uint _amt) public {
-        if(balances[_sender]>=_amt){
-            totalSupply -= _amt;
-            balances[_sender] -= _amt;
+    function createProposal(string memory _desc) public {
+        if (bytes(_desc).length == 0) {
+            revert("Proposal description cannot be empty");
         }
-        
-    }
-    function burnRequire(address _sender, uint _amt) public {
-        require(balances[_sender]>=_amt,"Not sufficient credit");
-            totalSupply -= _amt;
-            balances[_sender] -= _amt;
-        
-        
+        proposals.push(Proposal({
+            desc: _desc,
+            voteCount: 0
+        }));
     }
 
-    function burnRevert(address _sender, uint _amt) public {
-        if(balances[_sender]>=_amt){
-            revert("Not sufficient credit");
-        }
-        totalSupply -= _amt;
-        balances[_sender] -= _amt;
-        
+    function vote(uint _planId) public {
+        require(_planId < proposals.length, "Proposal does not exist");
+        require(!hasVoted[msg.sender][_planId], "You have already voted on this proposal");
+
+        proposals[_planId].voteCount += 1;
+        hasVoted[msg.sender][_planId] = true;
+
+        assert(proposals[_planId].voteCount <= proposals.length);
     }
-    function burnAssert(address _sender, uint _amt) public {
-        assert(balances[_sender]>=_amt);
-        totalSupply -= _amt;
-        balances[_sender] -= _amt;
-        
-        
+
+    function getProposal(uint _planId) public view returns (string memory, uint) {
+        require(_planId < proposals.length, "Proposal does not exist");
+        Proposal storage proposal = proposals[_planId];
+        return (proposal.desc, proposal.voteCount);
     }
 }
