@@ -1,39 +1,59 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.18;
+pragma solidity ^0.8.0;
 
-contract MaskedOpinion {
-
-    struct Proposal {
-        string desc;
-        uint voteCount;
+contract InventoryManagement {
+    
+    struct Item {
+        uint id;
+        string name;
+        uint qnt;
     }
-
-    Proposal[] private  proposals;
-    mapping(address => mapping(uint => bool)) public hasVoted;
-
-    function createProposal(string memory _desc) public {
-        if (bytes(_desc).length == 0) {
-            revert("Proposal description cannot be empty");
+    
+    Item[] private inventory;
+    uint private nextId;
+    
+    constructor() {
+        inventory.push(Item(++nextId, "Apple", 10));
+        inventory.push(Item(++nextId, "Banana", 20));
+        inventory.push(Item(++nextId, "Orange", 30));
+    }
+    
+    function getInventory() public view returns (Item[] memory) {
+        return inventory;
+    }
+    
+    function addItem(string memory name, uint qnt) public {
+        if(bytes(name).length == 0){
+            revert( "Name cannot be empty");
         }
-        proposals.push(Proposal({
-            desc: _desc,
-            voteCount: 0
-        }));
+        if(qnt==0){
+            revert("Quantity can't be 0");
+        }
+        inventory.push(Item(++nextId, name, qnt));
     }
 
-    function vote(uint _planId) public {
-        require(_planId < proposals.length, "Proposal does not exist");
-        require(!hasVoted[msg.sender][_planId], "You have already voted on this proposal");
-
-        proposals[_planId].voteCount += 1;
-        hasVoted[msg.sender][_planId] = true;
-
-        assert(proposals[_planId].voteCount <= proposals.length);
+    function updateItem(uint id, uint qnt) public {
+        uint flag = 0;
+        for (uint i = 0; i < inventory.length; i++) {
+            if (inventory[i].id == id) {
+                inventory[i].qnt = qnt;
+                flag = 1;
+                 break;
+            }
+        }
+        require(flag==1,"No such item with given id !");
     }
-
-    function getProposal(uint _planId) public view returns (string memory, uint) {
-        require(_planId < proposals.length, "Proposal does not exist");
-        Proposal storage proposal = proposals[_planId];
-        return (proposal.desc, proposal.voteCount);
+    
+    function deleteItem(uint id) public {
+        uint flag = 0;
+        for (uint i = 0; i < inventory.length; i++) {
+            if (inventory[i].id == id) {
+                flag = 1;
+                inventory[i] = inventory[inventory.length - 1];
+                inventory.pop();
+                break ;
+            }
+        }
+         assert(flag==1);
     }
 }
